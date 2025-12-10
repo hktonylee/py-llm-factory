@@ -25,3 +25,12 @@ def test_get_groq_compatible_client_from_environment_variables():
     client = py_llm_factory.get_openai_compatible_client()
     assert client is not None
 
+def test_get_suggested_nano_model_from_environment_variables():
+    os.environ['LLM_FACTORY__SUGGESTED_NANO_MODEL'] = 'test112'
+    model = py_llm_factory.get_suggested_nano_model()
+    assert model == 'test112'
+
+def test_get_suggested_mini_model_from_environment_variables():
+    os.environ['LLM_FACTORY__SUGGESTED_MINI_MODEL'] = 'test223'
+    model = py_llm_factory.get_suggested_mini_model()
+    assert model == 'test223'
