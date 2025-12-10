@@ -28,10 +28,10 @@ def get_openai_compatible_client(
         raise ValueError('Unsupported LLM provider: ' + provider)
 
 
-def get_suggested_nano_model(provider: str = None):
+def get_preferred_nano_model(provider: str = None) -> str:
     provider = provider or os.environ.get('LLM_FACTORY__PROVIDER')
 
-    model = os.environ.get('LLM_FACTORY__SUGGESTED_NANO_MODEL')
+    model = os.environ.get('LLM_FACTORY__PREFERRED_NANO_MODEL')
     if model:
         return model
 
@@ -43,9 +43,9 @@ def get_suggested_nano_model(provider: str = None):
         raise ValueError('Unsupported LLM provider: ' + provider)
 
 
-def get_suggested_mini_model(provider: str = None):
+def get_preferred_mini_model(provider: str = None) -> str:
     provider = provider or os.environ.get('LLM_FACTORY__PROVIDER')
-    model = os.environ.get('LLM_FACTORY__SUGGESTED_MINI_MODEL')
+    model = os.environ.get('LLM_FACTORY__PREFERRED_MINI_MODEL')
     if model:
         return model
 
