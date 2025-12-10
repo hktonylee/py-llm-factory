@@ -40,6 +40,9 @@ repos:
         additional_dependencies:
           - pytest
           - types-setuptools
+          - pip-importer
+          - openai
+          - groq
   - repo: https://github.com/jazzband/pip-tools
     rev: 7.3.0
     hooks:
