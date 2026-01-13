@@ -1,5 +1,4 @@
 import os
-import shlex
 from typing import Optional
 
 import pip_importer
@@ -23,7 +22,7 @@ def get_openai_compatible_client(
         import subprocess
 
         api_key = (
-            subprocess.check_output(shlex.split(api_key_provider), shell=True)
+            subprocess.check_output(api_key_provider, shell=True)
             .decode("utf-8")
             .strip()
         )
