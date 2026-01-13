@@ -1,4 +1,5 @@
 import os
+import shlex
 from typing import Optional
 
 import pip_importer
@@ -6,12 +7,26 @@ import pip_importer
 
 def get_openai_compatible_client(
     provider: Optional[str] = None,
+    *,
     api_key: Optional[str] = None,
+    api_key_provider: Optional[str] = None,
     base_url: Optional[str] = None,
 ):
-    provider = provider or os.environ.get("LLM_FACTORY__PROVIDER")
-    api_key = api_key or os.environ.get("LLM_FACTORY__API_KEY")
-    base_url = base_url or os.environ.get("LLM_FACTORY__BASE_URL")
+    provider = provider or os.environ.get("LLM_FACTORY__PROVIDER") or None
+    api_key = api_key or os.environ.get("LLM_FACTORY__API_KEY") or None
+    api_key_provider = (
+        api_key_provider or os.environ.get("LLM_FACTORY__API_KEY_PROVIDER") or None
+    )
+    base_url = base_url or os.environ.get("LLM_FACTORY__BASE_URL") or None
+
+    if not api_key and api_key_provider:
+        import subprocess
+
+        api_key = (
+            subprocess.check_output(shlex.split(api_key_provider), shell=True)
+            .decode("utf-8")
+            .strip()
+        )
 
     if provider == "openai":
         pip_importer.pip_import("openai")
